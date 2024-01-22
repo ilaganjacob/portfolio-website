@@ -16,6 +16,7 @@ export const Banner = () => {
         let ticker = setInterval(() => {
             tick();
         }, delta)
+
         return () => {clearInterval(ticker)}
     }, [text])
 
@@ -23,6 +24,21 @@ export const Banner = () => {
         let i = loopNum % toRotate.length;
         let fullText = toRotate[i];
         let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
+
+        setText(updatedText);
+
+        if(isDeleting){
+            setDelta(prevDelta => prevDelta / 2);
+        }
+
+        if(!isDeleting && updatedText === fullText){
+            setIsDeleting(true);
+            setDelta(period);
+        } else if(isDeleting && updatedText === ''){
+            setIsDeleting(false);
+            setLoopNum(loopNum + 1);
+            setDelta(500);
+        }
     }
 
     return (
@@ -31,7 +47,7 @@ export const Banner = () => {
                 <Row className="align-items-center">
                     <Col xs={12} md={6} xl={7}>
                         <span className="tagline">Welcome to my Portfolio</span>
-                        <h1>{`Hi I'm Jacob`}<span className="wrap">, a developer</span></h1>
+                        <h1>{`Hi I'm Jacob`}<span className="wrap">{text}</span></h1>
                         <p>I am a student at Seneca Polytechnic College studying Computer Programming and Analysis. I am now at a point where I am seeking to elevate my skills and apply them in a professional environment. I am keen on joining an organization that appreciates innovation and learning, providing me with the opportunity to contribute and grow. My goal is to be hired by a team that challenges me with real-world problems and collaborates on cutting-edge solutions, allowing me to continue my coding journey while contributing meaningful work.</p>
                         <button onClick={() => console.log('connect')}>Let's Connect!<ArrowRightCircle size={25}></ArrowRightCircle></button>
                     </Col>
