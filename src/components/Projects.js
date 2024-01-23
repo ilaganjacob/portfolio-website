@@ -1,9 +1,9 @@
 import {Container, Col, Row, Tab, Nav} from "react-bootstrap"
-import {ProjectCard} from "./ProjectCard";
+// import {ProjectCard} from "./ProjectCard";
 import projImg1 from "../assets/img/project-img1.png";
 import projImg2 from "../assets/img/project-img2.png";
 import projImg3 from "../assets/img/project-img3.png";
-import "amimate.css";
+// import "animate.css";
 
 export const Projects = () => {
     const projects = [
@@ -61,7 +61,20 @@ export const Projects = () => {
                         </Nav>
                     </Tab.Container>
                     <Tab.Content >
+                        <Tab.Pane eventKey="first">
+                            <Row>
+                                {
+                                    projects.map((project, index) => {
+                                        return(
+                                            <p>{project.title}</p>
+                                        )
+                                    })
+                                }
+                            </Row>
 
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="second">Lorem Ipsum</Tab.Pane>
+                        <Tab.Pane eventKey="third">Lorem Ipsum</Tab.Pane>
                     </Tab.Content>
                 </Col>
             </Row>
